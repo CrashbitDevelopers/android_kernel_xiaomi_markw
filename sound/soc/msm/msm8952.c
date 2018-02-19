@@ -77,9 +77,7 @@ static atomic_t quat_mi2s_clk_ref;
 static atomic_t quin_mi2s_clk_ref;
 static atomic_t auxpcm_mi2s_clk_ref;
 
-#ifdef CONFIG_MACH_XIAOMI_MARKW
 static int spk_pa_gpio;
-#endif
 
 static int msm8952_enable_dig_cdc_clk(struct snd_soc_codec *codec, int enable,
 					bool dapm);
@@ -88,9 +86,7 @@ static int msm8952_mclk_event(struct snd_soc_dapm_widget *w,
 			      struct snd_kcontrol *kcontrol, int event);
 static int msm8952_wsa_switch_event(struct snd_soc_dapm_widget *w,
 			      struct snd_kcontrol *kcontrol, int event);
-#ifdef CONFIG_MACH_XIAOMI_MARKW
 static struct delayed_work lineout_amp_enable;
-#endif
 /*
  * Android L spec
  * Need to report LINEIN
@@ -179,9 +175,7 @@ static const char *const btsco_rate_text[] = {"BTSCO_RATE_8KHZ",
 static const char *const proxy_rx_ch_text[] = {"One", "Two", "Three", "Four",
 	"Five", "Six", "Seven", "Eight"};
 static const char *const vi_feed_ch_text[] = {"One", "Two"};
-#ifdef CONFIG_MACH_XIAOMI_MARKW
 static const char *const lineout_text[] = {"DISABLE", "ENABLE", "DUALMODE"};
-#endif
 static char const *mi2s_rx_sample_rate_text[] = {"KHZ_48",
 					"KHZ_96", "KHZ_192"};
 
@@ -729,7 +723,6 @@ static int msm8952_enable_dig_cdc_clk(struct snd_soc_codec *codec,
 	return ret;
 }
 
-#ifdef CONFIG_MACH_XIAOMI_MARKW
 static void msm8952_ext_spk_control(u32 enable)
 {
 		int i = 0;
@@ -789,7 +782,6 @@ static int lineout_status_put(struct snd_kcontrol *kcontrol,
 	}
 	return 0;
 }
-#endif
 
 static int msm_btsco_rate_get(struct snd_kcontrol *kcontrol,
 				struct snd_ctl_elem_value *ucontrol)
@@ -1077,9 +1069,7 @@ static const struct soc_enum msm_snd_enum[] = {
 				vi_feed_ch_text),
 	SOC_ENUM_SINGLE_EXT(ARRAY_SIZE(mi2s_rx_sample_rate_text),
 				mi2s_rx_sample_rate_text),
-#ifdef CONFIG_MACH_XIAOMI_MARKW
 	SOC_ENUM_SINGLE_EXT(ARRAY_SIZE(lineout_text), lineout_text),
-#endif
 };
 
 static const struct snd_kcontrol_new msm_snd_controls[] = {
@@ -1099,10 +1089,8 @@ static const struct snd_kcontrol_new msm_snd_controls[] = {
 			msm_vi_feed_tx_ch_get, msm_vi_feed_tx_ch_put),
 	SOC_ENUM_EXT("MI2S_RX SampleRate", msm_snd_enum[6],
 			mi2s_rx_sample_rate_get, mi2s_rx_sample_rate_put),
-#ifdef CONFIG_MACH_XIAOMI_MARKW
 	SOC_ENUM_EXT("Lineout_1 amp", msm_snd_enum[7],
 			lineout_status_get, lineout_status_put),
-#endif
 };
 
 static int msm8952_mclk_event(struct snd_soc_dapm_widget *w,
@@ -3172,7 +3160,6 @@ parse_mclk_freq:
 		id = DEFAULT_MCLK_RATE;
 	}
 	pdata->mclk_freq = id;
-#ifdef CONFIG_MACH_XIAOMI_MARKW
 	spk_pa_gpio = of_get_named_gpio(pdev->dev.of_node, "ext-spk-amp-gpio", 0);
 	if (spk_pa_gpio < 0) {
 		dev_err(&pdev->dev,
@@ -3183,7 +3170,6 @@ parse_mclk_freq:
 		}
 	}
 	pr_err("%s: [hjf] request spk_pa_gpio is %d!\n", __func__, spk_pa_gpio);
-#endif
 	/*reading the gpio configurations from dtsi file*/
 	ret = msm_gpioset_initialize(CLIENT_WCD_INT, &pdev->dev);
 	if (ret < 0) {
@@ -3356,9 +3342,8 @@ parse_mclk_freq:
 		goto err;
 	/* initialize timer */
 	INIT_DELAYED_WORK(&pdata->disable_mclk_work, msm8952_disable_mclk);
-#ifdef CONFIG_MACH_XIAOMI_MARKW
 	INIT_DELAYED_WORK(&lineout_amp_enable, msm8x16_ext_spk_delayed_enable);
-#endif
+
 	mutex_init(&pdata->cdc_mclk_mutex);
 	atomic_set(&pdata->mclk_rsc_ref, 0);
 	if (card->aux_dev) {
@@ -3405,9 +3390,7 @@ err:
 		}
 	}
 err1:
-#ifdef CONFIG_MACH_XIAOMI_MARKW
 	snd_soc_card_set_drvdata(card, NULL);
-#endif
 	devm_kfree(&pdev->dev, pdata);
 	return ret;
 }

@@ -51,7 +51,6 @@
    their framework which is 0.1DegC. True resolution of 0.1DegC
    will result in the below table size to increase by 10 times */
 static const struct qpnp_vadc_map_pt adcmap_btm_threshold[] = {
-#ifdef CONFIG_MACH_XIAOMI_MARKW
 	{-300,	1651},
 	{-290,	1644},
 	{-280,	1637},
@@ -162,7 +161,6 @@ static const struct qpnp_vadc_map_pt adcmap_btm_threshold[] = {
 	{770,	276},
 	{780,	270},
 	{790,	263}
-#else
 	{-300,	1642},
 	{-200,	1544},
 	{-100,	1414},
@@ -246,7 +244,6 @@ static const struct qpnp_vadc_map_pt adcmap_btm_threshold[] = {
 	{770,	213},
 	{780,	208},
 	{790,	203}
-#endif
 };
 
 static const struct qpnp_vadc_map_pt adcmap_qrd_btm_threshold[] = {

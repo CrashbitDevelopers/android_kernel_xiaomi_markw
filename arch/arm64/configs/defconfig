@@ -2277,12 +2277,6 @@ CONFIG_MSM_QPNP_INT=y
 CONFIG_MACH_XIAOMI_MSM8953=y
 
 #
-# Xiaomi board selection
-#
-# CONFIG_MACH_XIAOMI_MIDO is not set
-CONFIG_MACH_XIAOMI_MARKW=y
-
-#
 # SOC (System On Chip) specific Drivers
 #
 CONFIG_CP_ACCESS64=y

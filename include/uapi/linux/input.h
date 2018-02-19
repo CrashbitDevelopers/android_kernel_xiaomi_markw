@@ -956,7 +956,7 @@ struct input_keymap_entry {
 #define SND_CNT			(SND_MAX+1)
 
 /*
->>>>>>> af47425... sound: soc: changes for markw
+ * Changes for markw
  * IDs.
  */
 

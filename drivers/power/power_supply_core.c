@@ -270,7 +270,6 @@ int power_supply_set_low_power_state(struct power_supply *psy, int value)
 }
 EXPORT_SYMBOL(power_supply_set_low_power_state);
 
-#ifdef CONFIG_MACH_XIAOMI_MARKW
 int power_supply_get_battery_charge_state(struct power_supply *psy)
 {
 	union power_supply_propval ret = {0,};
@@ -284,7 +283,6 @@ int power_supply_get_battery_charge_state(struct power_supply *psy)
 	return ret.intval;
 }
 EXPORT_SYMBOL(power_supply_get_battery_charge_state);
-#endif
 
 /**
  * power_supply_set_dp_dm -
