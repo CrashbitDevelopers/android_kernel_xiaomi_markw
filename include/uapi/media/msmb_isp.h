@@ -455,8 +455,6 @@ struct msm_vfe_axi_stream_update_cmd {
 					update_info[MSM_ISP_STATS_MAX];
 		struct msm_vfe_axi_stream_cfg_update_info_req_frm req_frm_ver2;
 	};
-	struct msm_vfe_axi_stream_cfg_update_info
-					update_info[MSM_ISP_STATS_MAX];
 };
 
 struct msm_vfe_smmu_attach_cmd {
